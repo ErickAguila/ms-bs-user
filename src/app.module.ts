@@ -2,7 +2,7 @@ import { Logger, MiddlewareConsumer, Module } from '@nestjs/common';
 import { UsersModule } from './module/users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { configEnv, configVar } from './config/env.config';
+import { configEnv, configVar } from './shared/config/env.config';
 import { LoggerMiddleware } from './shared/middleware/logger.middleware';
 
 @Module({
