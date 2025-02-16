@@ -1,8 +1,9 @@
-import { Module } from '@nestjs/common';
+import { Logger, MiddlewareConsumer, Module } from '@nestjs/common';
 import { UsersModule } from './module/users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configEnv, configVar } from './config/env.config';
+import { LoggerMiddleware } from './shared/middleware/logger.middleware';
 
 @Module({
   imports: [
@@ -25,4 +26,13 @@ import { configEnv, configVar } from './config/env.config';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+
+  constructor(private readonly configService: ConfigService) {
+    const logger = new Logger(AppModule.name);
+    logger.verbose(`CONFIG_VAR: => ${JSON.stringify(configEnv())}`);
+  }
+}
