@@ -63,7 +63,7 @@ export class CreateUserDto {
     required: true,
     maxLength: 20,
     minLength: 4,
-    example: 'admin | cliente | vendor',
+    example: 'admin | cliente | vendedor',
   })
   role: string;
 }
