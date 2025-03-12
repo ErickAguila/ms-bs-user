@@ -16,6 +16,7 @@ export class UsersService {
     const userFirebase = await firebaseAdmin.auth().createUser({
       email: createUserDto.email,
       password: createUserDto.password,
+      displayName: createUserDto.username,
     });
     if (userFirebase.uid) {
       Logger.log(`Usuario creado en Firebase con ID: ${userFirebase.uid}`);
