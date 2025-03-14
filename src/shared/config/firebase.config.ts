@@ -1,11 +1,12 @@
-// filepath: /path/to/firebase.config.ts
 import * as admin from 'firebase-admin';
-import * as serviceAccount from './sa-firebase.json';
+import { configVar } from './env.config';
+
+const firebaseConfig = JSON.parse(configVar.FIREBASE_CREDENTIALS);
 
 if (!admin.apps.length) {
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
-    projectId: serviceAccount.project_id,
+    credential: admin.credential.cert(firebaseConfig),
+    projectId: firebaseConfig.project_id,
   });
 }
 
